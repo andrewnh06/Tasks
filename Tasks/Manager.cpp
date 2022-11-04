@@ -1,3 +1,6 @@
+// Manager.cpp 
+// Holds array of all active tasks
+
 #include "Manager.hpp"
 
 TaskId Manager::CalculateNextId() {
