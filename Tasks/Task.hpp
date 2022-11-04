@@ -14,15 +14,15 @@ class Task
 {
 public:
 	// Override for read/write
-	Task(const char* name, bool completed, std::tm dateCreated);
-	Task(const char* name);
+	Task(std::string name, bool completed, std::tm dateCreated);
+	Task(std::string name);
 
 	std::tm GetDateCreated() { return m_DateCreated; }
 	const char* GetDateCreatedStr();
-	const char* GetName() { return m_Name; }
+	std::string GetName() { return m_Name; }
 	bool GetCompleted() { return m_Completed; }
 private:
-	const char* m_Name = {};
+	std::string m_Name = {};
 	std::tm m_DateCreated = {};
 	bool m_Completed = false;
 };

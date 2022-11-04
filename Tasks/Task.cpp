@@ -10,15 +10,14 @@ std::tm GetCurrentDate() {
 	return currentDate;
 }
 
-// Override for Read/Write
-Task::Task(const char* name, bool completed, std::tm dateCreated)
+Task::Task(std::string name, bool completed, std::tm dateCreated)
 {
 	m_Name = name;
 	m_DateCreated = dateCreated;
 	m_Completed = completed;
 }
 
-Task::Task(const char* name) {
+Task::Task(std::string name) {
 	m_Name = name;
 	m_DateCreated = GetCurrentDate();
 }
