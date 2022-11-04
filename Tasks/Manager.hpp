@@ -1,4 +1,5 @@
 // Manager.hpp
+// Holds array of all active tasks
 
 #pragma once
 
