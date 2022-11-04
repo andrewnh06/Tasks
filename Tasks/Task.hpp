@@ -1,5 +1,8 @@
 #pragma once
 
+// Task.hpp
+// Base class for the whole program
+
 #include <iostream>
 #include <time.h>
 
