@@ -32,10 +32,9 @@ std::map<TaskId, Task> FileIO::ReadTaskData() {
 		bool completed = (entry[1]["completed"] == "Yes") ? true : false;
 		std::string date = entry[1]["date"];
 		std::string name = entry[1]["name"];
-		const char* nameChar = name.c_str();
 
 		TaskId id = entry[0];
-		Task appendTask = Task(nameChar, completed, GetCurrentDate());
+		Task appendTask = Task(name, completed, GetCurrentDate());
 		std::cout << appendTask.GetName() << std::endl;
 		writtenTasks.insert({id, appendTask});
 	}
