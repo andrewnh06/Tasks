@@ -6,4 +6,4 @@
 
 11/3/2022 - Added FileIO class, can now write to file. TODO: finish config system, need to finish reading from config
 
-11/4/2022 - Finished FileIO class. You can now read/write to file when needed, meaning you can make tasks for another date and close the program. There was a weird bug based around reading the task names from file, but is now fixed by switching Task.m_Name type from const char* to std::string. Also added an override to default Task constructor, now allowing user to specify the date created and task status during object creation. TODO: Start implementing a way to show current tasks with ImGui.
+11/4/2022 - Finished FileIO class. You can now read/write to file when needed, meaning you can make tasks for another date and close the program. There was a weird bug based around reading the task names from file, but is now fixed by switching Task::m_Name type from const char* to std::string. Also added an override to default Task constructor, now allowing user to specify the date created and task status during object creation. TODO: Start implementing a way to show current tasks with ImGui.
