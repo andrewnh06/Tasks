@@ -13,6 +13,7 @@ typedef int TaskId;
 class Task
 {
 public:
+	// Override for read/write
 	Task(const char* name, bool completed, std::tm dateCreated);
 	Task(const char* name);
 

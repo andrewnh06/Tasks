@@ -1,4 +1,4 @@
-// Task.cpp
+// Task.cpp 
 
 #include "Task.hpp"
 
@@ -10,6 +10,7 @@ std::tm GetCurrentDate() {
 	return currentDate;
 }
 
+// Override for Read/Write
 Task::Task(const char* name, bool completed, std::tm dateCreated)
 {
 	m_Name = name;
