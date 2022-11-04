@@ -10,6 +10,13 @@ std::tm GetCurrentDate() {
 	return currentDate;
 }
 
+Task::Task(const char* name, bool completed, std::tm dateCreated)
+{
+	m_Name = name;
+	m_DateCreated = dateCreated;
+	m_Completed = completed;
+}
+
 Task::Task(const char* name) {
 	m_Name = name;
 	m_DateCreated = GetCurrentDate();

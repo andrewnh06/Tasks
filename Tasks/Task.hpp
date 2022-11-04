@@ -13,6 +13,7 @@ typedef int TaskId;
 class Task
 {
 public:
+	Task(const char* name, bool completed, std::tm dateCreated);
 	Task(const char* name);
 
 	std::tm GetDateCreated() { return m_DateCreated; }

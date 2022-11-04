@@ -6,6 +6,7 @@
 #include <map>
 
 #include "Task.hpp"
+#include "FileIO.hpp"
 
 #define MAX_TASK_ID 99
 
@@ -16,6 +17,8 @@ public:
 	TaskId CalculateNextId();							// Calculate the next unused TaskId
 
 	std::map<TaskId, Task> GetActiveTasks() { return m_ActiveTasks; }
+	void SaveTasksToConfig() { g_FileIO.WriteTaskData(m_ActiveTasks); }
+	void LoadTasksFromConfig() { m_ActiveTasks = g_FileIO.ReadTaskData(); }
 private:
 	std::map<TaskId, Task> m_ActiveTasks = {};			// Map of all active tasks: key is TaskId, value is Task
 };
