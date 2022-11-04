@@ -9,13 +9,13 @@
 
 #include "json.hpp"
 #include "Task.hpp"
-#include "Manager.hpp"
 
 class FileIO
 {
 public:
 	FileIO();
 	void WriteTaskData(std::map<TaskId, Task> activeTasks);
+	std::map<TaskId, Task> ReadTaskData();
 private:
 	bool FileExists();
 
