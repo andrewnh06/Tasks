@@ -6,6 +6,9 @@ FileIO::FileIO() {
 	if (!FileExists()) {
 		std::cout << "[+] Data file not found! Creating one now..." << std::endl;
 	}
+
+	std::ofstream file(m_File);
+	file << "No data found!";
 }
 
 void FileIO::WriteTaskData(std::map<TaskId, Task> activeTasks) {
