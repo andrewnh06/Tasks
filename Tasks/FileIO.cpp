@@ -25,7 +25,7 @@ void FileIO::WriteTaskData(std::map<TaskId, Task> activeTasks) {
 	file.close();
 }
 
-std::map<TaskId, Task> FileIO::ReadTaskData() {
+void FileIO::ReadTaskData(std::map<TaskId, Task> &activeTasks) {
 	std::ifstream file(m_File);
 	nlohmann::json j = nlohmann::json::parse(file);
 
@@ -42,7 +42,7 @@ std::map<TaskId, Task> FileIO::ReadTaskData() {
 		writtenTasks.insert({id, appendTask});
 	}
 
-	return writtenTasks;
+	activeTasks = writtenTasks;
 }
 
 bool FileIO::FileExists() {
