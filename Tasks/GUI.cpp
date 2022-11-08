@@ -10,10 +10,13 @@ bool ImGui::RenderTask(int id, Task *task)
     ImGui::BeginChild(id + 50, ImVec2(ImGui::GetWindowSize().x - 16.f, 80), true); { // RENDER ALL CURRENT TASKS
 
         std::string name = task->GetName();
+        std::string date = task->GetDateCreatedStr();
+
+        std::string title = name + " - " + date;
 
         ImGui::PushFont(BiggerFont);
 
-        ImGui::Text(name.c_str());
+        ImGui::Text(title.c_str());
 
         ImGui::PopFont();
 
