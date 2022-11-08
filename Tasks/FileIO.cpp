@@ -15,7 +15,7 @@ void FileIO::WriteTaskData(std::map<TaskId, Task> activeTasks) {
 	nlohmann::json j;
 	for (auto& entry : activeTasks) {
 		std::string name = entry.second.GetName();
-		std::string completed = entry.second.GetCompleted() ? "Yes" : "No";
+		std::string completed = entry.second.m_Completed ? "Yes" : "No";
 		std::string date = "undefined";
 		j.push_back(nlohmann::json::array({ entry.first, { {"name", name}, {"completed", completed},{"date", date} }}));
 	}

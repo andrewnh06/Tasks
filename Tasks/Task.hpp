@@ -20,9 +20,8 @@ public:
 	std::tm GetDateCreated() { return m_DateCreated; }
 	const char* GetDateCreatedStr();
 	std::string GetName() { return m_Name; }
-	bool GetCompleted() { return m_Completed; }
+	bool m_Completed = false;
 private:
 	std::string m_Name = {};
 	std::tm m_DateCreated = {};
-	bool m_Completed = false;
 };

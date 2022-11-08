@@ -108,5 +108,8 @@
     <ClInclude Include="json.hpp">
       <Filter>Source Files\FileIO\json</Filter>
     </ClInclude>
+    <ClInclude Include="ByteData.hpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
