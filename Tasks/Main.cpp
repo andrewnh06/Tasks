@@ -4,7 +4,7 @@
 int main() {
 	// RenderGUI();
 
-	g_Manager.LoadTasksFromConfig();
+	// g_Manager.LoadTasksFromConfig();
 
 	/*Task a = "Dishes";
 	Task b = "Laundry";
