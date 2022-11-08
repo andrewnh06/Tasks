@@ -18,7 +18,7 @@ public:
 
 	std::map<TaskId, Task> GetActiveTasks() { return m_ActiveTasks; }
 	void SaveTasksToConfig() { g_FileIO.WriteTaskData(m_ActiveTasks); }
-	void LoadTasksFromConfig() { m_ActiveTasks = g_FileIO.ReadTaskData(); }
+	void LoadTasksFromConfig() { g_FileIO.ReadTaskData(m_ActiveTasks); }
 private:
 	std::map<TaskId, Task> m_ActiveTasks = {};			// Map of all active tasks: key is TaskId, value is Task
 };

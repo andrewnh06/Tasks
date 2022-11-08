@@ -15,7 +15,7 @@ class FileIO
 public:
 	FileIO();
 	void WriteTaskData(std::map<TaskId, Task> activeTasks);
-	std::map<TaskId, Task> ReadTaskData();
+	void ReadTaskData(std::map<TaskId, Task>& activeTasks);
 private:
 	bool FileExists();
 
