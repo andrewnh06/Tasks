@@ -3,11 +3,9 @@
 
 int main() {
 
-	// g_Manager.LoadTasksFromConfig();
+	g_Manager.LoadTasksFromConfig();
 
-	RenderGUI();
-
-	/*Task a("Dishes");
+	/* Task a("Dishes");
 	Task b("Laundry");
 	Task c("School");
 	Task d("Homework");
@@ -17,9 +15,11 @@ int main() {
 	g_Manager.AddTask(c);
 	g_Manager.AddTask(d);
 
-	g_Manager.SaveTasksToConfig();
+	g_Manager.SaveTasksToConfig(); */
 
-	for (auto& entry : g_Manager.GetActiveTasks()) {
+	RenderGUI();
+	
+	/*for (auto& entry : g_Manager.GetActiveTasks()) {
 		std::cout << entry.second.GetName() << std::endl;
 	}*/
 
