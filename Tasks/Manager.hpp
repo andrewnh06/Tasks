@@ -17,6 +17,8 @@ public:
 	TaskId CalculateNextId();							// Calculate the next unused TaskId
 
 	std::map<TaskId, Task> GetActiveTasks() { return m_ActiveTasks; }
+	Task* GetTaskPtr(TaskId id) { return &m_ActiveTasks.find(id)->second; }
+
 	void SaveTasksToConfig() { g_FileIO.WriteTaskData(m_ActiveTasks); }
 	void LoadTasksFromConfig() { g_FileIO.ReadTaskData(m_ActiveTasks); }
 private:
