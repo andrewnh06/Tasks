@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <time.h>
+#include <string>
 
 std::tm GetCurrentDate();
 
@@ -18,7 +19,7 @@ public:
 	Task(std::string name);
 
 	std::tm GetDateCreated() { return m_DateCreated; }
-	const char* GetDateCreatedStr();
+	std::string GetDateCreatedStr();
 	std::string GetName() { return m_Name; }
 	bool m_Completed = false;
 private:

@@ -21,3 +21,11 @@ Task::Task(std::string name) {
 	m_Name = name;
 	m_DateCreated = GetCurrentDate();
 }
+
+std::string Task::GetDateCreatedStr() {
+	std::string year = std::to_string(m_DateCreated.tm_year + 1900);
+	std::string month = std::to_string(m_DateCreated.tm_mon + 1);
+	std::string day = std::to_string(m_DateCreated.tm_mday);
+	
+	return month + "/" + day + "/" + year;
+}
