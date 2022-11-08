@@ -8,7 +8,7 @@
 
 11/4/2022 - Finished FileIO class. You can now read/write to file when needed, meaning you can make tasks for another date and close the program. There was a weird bug based around reading the task names from file, but is now fixed by switching Task::m_Name type from const char* to std::string. Also added an override to default Task constructor, now allowing user to specify the date created and task status during object creation. TODO: Start implementing a way to show current tasks with ImGui.
 
-11/5/2022 - (written before programming) It's a Saturday, not working on the program too much. Goals for today: Set up ImGui to look the way I want it to. Plan out a way to render current tasks.
+11/5/2022 - (written before programming) It's a Saturday, not working on the program too much. Goals for today: Set up ImGui to look the way I want it to. Plan out a way to render current tasks. Also, embedded a custom Font in raw bytes, located in ByteData.hpp
 
 Current progress on GUI: added a way to render every active task. still need to make it look pretty, but functionality comes first!
 ![Screenshot_20221105_023933](https://user-images.githubusercontent.com/117470530/200140444-0870bb7e-0889-4923-99f7-0b9dc46f7d19.png)
