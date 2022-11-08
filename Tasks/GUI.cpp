@@ -3,13 +3,13 @@
 ImFont* BiggerFont = nullptr;
 ImFont* MenuFont = nullptr;
 
-bool ImGui::RenderTask(int id, Task task)
+bool ImGui::RenderTask(int id, Task *task)
 {
     ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.45, 0.45, 0.45, 1));
 
     ImGui::BeginChild(id + 50, ImVec2(ImGui::GetWindowSize().x - 16.f, 80), true); { // RENDER ALL CURRENT TASKS
 
-        std::string name = task.GetName();
+        std::string name = task->GetName();
 
         ImGui::PushFont(BiggerFont);
 
@@ -17,7 +17,7 @@ bool ImGui::RenderTask(int id, Task task)
 
         ImGui::PopFont();
 
-        ImGui::Checkbox("Completed", &task.m_Completed);
+        ImGui::Checkbox("Completed", &task->m_Completed);
 
     } ImGui::EndChild();
 
@@ -29,7 +29,7 @@ void RenderGUI()
 {
     // Create application window
     //ImGui_ImplWin32_EnableDpiAwareness();
-    WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, L"ImGui Example", NULL };
+    WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, L"Tasks: A Lightweight Task Manager", NULL };
     ::RegisterClassExW(&wc);
     HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Tasks: A Lightweight Task Manager", WS_OVERLAPPEDWINDOW, 100, 100, 1000, 600, NULL, NULL, wc.hInstance, NULL);
 
@@ -121,7 +121,10 @@ void RenderGUI()
             ImGui::BeginChild(1, ImVec2(ImGui::GetWindowSize().x / 1.6f, 546), true); { // RENDER ALL CURRENT TASKS
                 
                 for (auto entry : g_Manager.GetActiveTasks()) {
-                    ImGui::RenderTask(entry.first, entry.second);
+                    TaskId id = entry.first;
+                    Task* task = g_Manager.GetTaskPtr(id);
+
+                    ImGui::RenderTask(id, task);
                 }
 
             } ImGui::EndChild();
