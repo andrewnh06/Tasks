@@ -1,5 +1,29 @@
 #include "GUI.hpp"
 
+ImFont* BiggerFont = nullptr;
+ImFont* MenuFont = nullptr;
+
+bool ImGui::RenderTask(int id, Task task)
+{
+    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.45, 0.45, 0.45, 1));
+
+    ImGui::BeginChild(id + 50, ImVec2(ImGui::GetWindowSize().x - 16.f, 80), true); { // RENDER ALL CURRENT TASKS
+
+        std::string name = task.GetName();
+
+        ImGui::PushFont(BiggerFont);
+
+        ImGui::Text(name.c_str());
+
+        ImGui::PopFont();
+
+        ImGui::Checkbox("Completed", &task.m_Completed);
+
+    } ImGui::EndChild();
+
+    ImGui::PopStyleColor();
+}
+
 // Main code
 void RenderGUI()
 {
@@ -7,7 +31,7 @@ void RenderGUI()
     //ImGui_ImplWin32_EnableDpiAwareness();
     WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, L"ImGui Example", NULL };
     ::RegisterClassExW(&wc);
-    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Dear ImGui DirectX9 Example", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
+    HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Tasks: A Lightweight Task Manager", WS_OVERLAPPEDWINDOW, 100, 100, 1000, 600, NULL, NULL, wc.hInstance, NULL);
 
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
@@ -55,7 +79,10 @@ void RenderGUI()
     // Our state
     bool show_demo_window = true;
     bool show_another_window = false;
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    ImVec4 clear_color = ImVec4(0.6f, 0.6f, 0.6f, 1.00f);
+    
+    BiggerFont = io.Fonts->AddFontFromMemoryTTF(RobotoFontBytes, sizeof(RobotoFontBytes), 18.f);
+    MenuFont = io.Fonts->AddFontFromMemoryTTF(RobotoFontBytes, sizeof(RobotoFontBytes), 12.f);
 
     // Main loop
     bool done = false;
@@ -79,37 +106,38 @@ void RenderGUI()
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
+        ImGui::SetNextWindowPos(ImVec2(0, 0));
+        ImGui::SetNextWindowSize(ImVec2(1000, 600));
+        
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
         {
             static float f = 0.0f;
             static int counter = 0;
 
-            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+            ImGui::PushFont(MenuFont);
 
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-            ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &show_another_window);
+            ImGui::Begin("MainWindow", 0, ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);                          // Create a window called "Hello, world!" and append into it.
 
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+            ImGui::BeginChild(1, ImVec2(ImGui::GetWindowSize().x / 1.6f, 546), true); { // RENDER ALL CURRENT TASKS
+                
+                for (auto entry : g_Manager.GetActiveTasks()) {
+                    ImGui::RenderTask(entry.first, entry.second);
+                }
 
-            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
+            } ImGui::EndChild();
+
             ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
 
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            ImGui::End();
-        }
+            ImGui::BeginChild(2, ImVec2(ImGui::GetWindowSize().x - ImGui::GetCursorPosX() - 22, 546), true); { // TASK CREATION TAB
 
-        // 3. Show another simple window.
-        if (show_another_window)
-        {
-            ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                show_another_window = false;
+
+
+            } ImGui::EndChild();
+
             ImGui::End();
+
+            ImGui::PopFont();
+
         }
 
         // Rendering
