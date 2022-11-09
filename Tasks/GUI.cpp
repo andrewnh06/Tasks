@@ -1,18 +1,25 @@
 #include "GUI.hpp"
 
+// GUI.cpp
+// Commented code, or anything to do with the DirectX SDK, is not mine. 
+// It is taken from the official ImGui Demo code, credits to @ocornut.
+
 ImFont* BiggerFont = nullptr;
 ImFont* MenuFont = nullptr;
 
 bool ImGui::RenderTask(int id, Task *task)
 {
+    bool ret = true;
+
     ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.45, 0.45, 0.45, 1));
 
     ImGui::BeginChild(id + 50, ImVec2(ImGui::GetWindowSize().x - 16.f, 80), true); { // RENDER ALL CURRENT TASKS
 
+        std::string num = std::to_string(id + 1);
         std::string name = task->GetName();
         std::string date = task->GetDateCreatedStr();
 
-        std::string title = name + " - " + date;
+        std::string title = num + ". " + name + " - " + date;
 
         ImGui::PushFont(BiggerFont);
 
@@ -21,10 +28,15 @@ bool ImGui::RenderTask(int id, Task *task)
         ImGui::PopFont();
 
         ImGui::Checkbox("Completed", &task->m_Completed);
+        if (ImGui::Button("Remove Task")) {
+            ret = false;
+        }
 
     } ImGui::EndChild();
 
     ImGui::PopStyleColor();
+
+    return ret;
 }
 
 // Main code
@@ -127,7 +139,10 @@ void RenderGUI()
                     TaskId id = entry.first;
                     Task* task = g_Manager.GetTaskPtr(id);
 
-                    ImGui::RenderTask(id, task);
+                    if (!ImGui::RenderTask(id, task)) {
+                        g_Manager.RemoveTask(id);
+                        break;
+                    }
                 }
 
             } ImGui::EndChild();
@@ -136,7 +151,34 @@ void RenderGUI()
 
             ImGui::BeginChild(2, ImVec2(ImGui::GetWindowSize().x - ImGui::GetCursorPosX() - 22, 546), true); { // TASK CREATION TAB
 
+                ImGui::PushFont(BiggerFont);
 
+                ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.45, 0.45, 0.45, 1));
+
+                ImGui::BeginChild(2, ImVec2(ImGui::GetWindowSize().x - 16.f, 530), true); { // RENDER ALL CURRENT TASKS
+
+                    static char inputText[64] = "";
+                    
+                    ImGui::Text("Add Task");
+
+                    ImGui::InputText("Task Title", inputText, IM_ARRAYSIZE(inputText));
+                    if (ImGui::Button("Add Task")) {
+                        g_Manager.AddTask(Task(inputText));
+                    }
+
+                    if (ImGui::Button("Save")) {
+                        g_Manager.SaveTasksToConfig();
+                    } ImGui::SameLine();
+
+                    if (ImGui::Button("Load")) {
+                        g_Manager.LoadTasksFromConfig();
+                    }
+
+                } ImGui::EndChild();
+
+                ImGui::PopStyleColor();
+
+                ImGui::PopFont();
 
             } ImGui::EndChild();
 
