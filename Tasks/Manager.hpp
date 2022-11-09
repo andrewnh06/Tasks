@@ -15,8 +15,10 @@ class Manager
 public:
 	bool AddTask(Task task);							// Push task to m_ActiveTasks. Returns false if more tasks defined than MAX_TASK_ID	
 	TaskId CalculateNextId();							// Calculate the next unused TaskId
+	void UpdateTaskIds();								// Update all Id's. Used for when an empty space needs to be filled
+	bool RemoveTask(TaskId id);							// Lookup task by Id and remove it. Update TaskIds after
 
-	std::map<TaskId, Task> GetActiveTasks() { return m_ActiveTasks; }
+	std::map<TaskId, Task>& GetActiveTasks() { return m_ActiveTasks; }
 	Task* GetTaskPtr(TaskId id) { return &m_ActiveTasks.find(id)->second; }
 
 	void SaveTasksToConfig() { g_FileIO.WriteTaskData(m_ActiveTasks); }

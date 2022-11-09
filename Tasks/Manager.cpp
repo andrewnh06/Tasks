@@ -24,4 +24,25 @@ bool Manager::AddTask(Task task) {
 	return true;
 }
 
+void Manager::UpdateTaskIds() {
+	TaskId newId = 0;
+	for (auto& entry : m_ActiveTasks) {
+		auto node = m_ActiveTasks.extract(entry.first);
+		node.key() = newId;
+		m_ActiveTasks.insert(std::move(node));
+
+		newId++;
+	}
+}
+
+bool Manager::RemoveTask(TaskId id) {
+	if (!m_ActiveTasks.count(id))			// does entry exist ?
+		return false;
+
+	m_ActiveTasks.erase(id);
+	UpdateTaskIds();
+
+	return true;
+}
+
 Manager g_Manager = Manager();
