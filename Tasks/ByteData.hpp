@@ -1,6 +1,6 @@
 #pragma once
 
-inline unsigned int RobotoFontBytes[158604 / 4] =
+inline unsigned int RobotoFontBytes[158604 / 4] = // this is just a font written in byte form to embed into the gui
 {
     0x00000100, 0x00011300, 0x30000400, 0x47495344, 0x01000000, 0x846b0200, 0x08000000, 0x46454447, 0x61186018, 0x3c010000, 0x48000000, 0x534f5047,
     0x11602a15, 0x84010000, 0xa08b0000, 0x42555347, 0x04ca26c8, 0x248d0000, 0x96020000, 0x322f534f, 0xc529a3b8, 0xbc8f0000, 0x60000000, 0x70616d63,
