@@ -60,20 +60,21 @@ void FileIO::ReadTaskData(std::map<TaskId, Task> &activeTasks) {
 		std::string date = entry[1]["date"];
 		std::string name = entry[1]["name"];
 
-		std::cout << date << std::endl;
-
 		TaskId id = entry[0];
 		Task appendTask = Task(name, completed, ParseDateData(date));
-		std::cout << appendTask.GetName() << std::endl;
 		writtenTasks.insert({id, appendTask});
 	}
+
+	file.close();
 
 	activeTasks = writtenTasks;
 }
 
 bool FileIO::FileExists() {
 	std::ifstream file(m_File);
-	return file.good();
+	bool ret = file.good();
+	file.close();
+	return ret;
 }
 
 FileIO g_FileIO = FileIO();
